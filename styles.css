@@ -140,6 +140,30 @@ li:last-child {
     color: #e74c3c;
 }
 
+.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.warning ol {
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+.warning p {
+    margin: 10px 0;
+}
+
+.warning strong {
+    display: block;
+    margin-bottom: 10px;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 1rem;
