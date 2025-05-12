@@ -1,0 +1,158 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+h2 {
+    color: #3498db;
+    margin: 1.5rem 0 1rem;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.input-group {
+    display: flex;
+    margin-bottom: 1.5rem;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 0.8rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+.copy-btn {
+    background-color: #27ae60;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.copy-btn:hover {
+    background-color: #219653;
+}
+
+.tracker-page {
+    text-align: center;
+}
+
+.location-info {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #f1f8ff;
+    border-radius: 8px;
+    border: 1px solid #d1e7ff;
+}
+
+#locationDetails {
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: #fff;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.button-container {
+    margin: 2rem 0;
+}
+
+.button-container button {
+    border-radius: 4px;
+    padding: 1rem 2rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+#status-message {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #d4f8d4;
+    color: #219653;
+}
+
+.error {
+    background-color: #fee;
+    color: #e74c3c;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    input[type="text"], button {
+        width: 100%;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+} 
