@@ -79,6 +79,25 @@ function displayLocationInfo(locationData) {
     `;
 }
 
+// Kiểm tra iOS
+function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+
+// Hướng dẫn người dùng iOS
+function showIOSInstructions() {
+    statusMessage.innerHTML = `
+        <p><strong>⚠️ Hướng dẫn cho người dùng iPhone/iPad:</strong></p>
+        <ol>
+            <li>Mở link này trong trình duyệt Safari (không phải từ ứng dụng khác)</li>
+            <li>Khi được hỏi, chọn "Allow" để cho phép truy cập vị trí</li>
+            <li>Nếu không thấy yêu cầu, hãy vào Cài đặt > Safari > Vị trí và chọn "Hỏi" hoặc "Cho phép"</li>
+        </ol>
+        <p>Sau đó nhấn lại nút "Chia sẻ vị trí của tôi"</p>
+    `;
+    statusMessage.className = 'warning';
+}
+
 // Xử lý lấy vị trí
 async function getLocation() {
     const linkId = getLinkIdFromUrl();
@@ -94,8 +113,22 @@ async function getLocation() {
         return;
     }
     
-    showMessage('Đang xác định vị trí của bạn...');
-    
+    // Hiển thị hướng dẫn đặc biệt cho người dùng iOS
+    if (isIOS()) {
+        showIOSInstructions();
+        // Tự động tiếp tục sau 5 giây
+        setTimeout(() => {
+            showMessage('Đang xác định vị trí của bạn...');
+            requestLocation(linkId);
+        }, 5000);
+    } else {
+        showMessage('Đang xác định vị trí của bạn...');
+        requestLocation(linkId);
+    }
+}
+
+// Yêu cầu vị trí
+function requestLocation(linkId) {
     // Lấy vị trí
     navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -113,7 +146,11 @@ async function getLocation() {
             
             switch(error.code) {
                 case error.PERMISSION_DENIED:
-                    errorMessage = 'Bạn đã từ chối quyền truy cập vị trí';
+                    if (isIOS()) {
+                        errorMessage = 'Bạn đã từ chối quyền truy cập vị trí. Vui lòng vào Cài đặt > Safari > Vị trí và chọn "Cho phép"';
+                    } else {
+                        errorMessage = 'Bạn đã từ chối quyền truy cập vị trí';
+                    }
                     break;
                 case error.POSITION_UNAVAILABLE:
                     errorMessage = 'Thông tin vị trí không khả dụng';
@@ -127,7 +164,7 @@ async function getLocation() {
         },
         {
             enableHighAccuracy: true,
-            timeout: 10000,
+            timeout: 15000,
             maximumAge: 0
         }
     );
